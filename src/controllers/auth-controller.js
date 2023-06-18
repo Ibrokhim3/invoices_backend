@@ -30,8 +30,6 @@ const LOGIN = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log(email, password);
-
     const user = await pool.query(`SELECT * FROM users where email=$1`, [
       email,
     ]);
@@ -57,7 +55,9 @@ const LOGIN = async (req, res) => {
       }
     );
 
-    return res.status(201).json({ accessToken, msg: "You're logged in" });
+    return res
+      .status(201)
+      .json({ accessToken, user: "user", msg: "You're logged in" });
   } catch (error) {
     console.log(error.message);
     return res

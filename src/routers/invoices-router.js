@@ -14,6 +14,7 @@ const router = Router();
 
 router.get("/invoices", invoicesCtr.GET_INVOICES);
 router.get("/invoices/:id", invoicesCtr.GET_ONE_INVOICE);
+router.post("/invoices", invoicesCtr.ADD_INVOICE);
 // router.post("/filter-active-posts", postCtr.FILTER_ACTIVE_POSTS);
 // router.get("/get-active-posts/:id", postCtr.GET_ONE_ACTIVE_POST);
 // router.get("/get-rejected-posts", verifyToken, postCtr.GET_REJECTED_POSTS);

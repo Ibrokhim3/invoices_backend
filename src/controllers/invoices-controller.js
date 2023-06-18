@@ -40,6 +40,33 @@ module.exports = {
         .json({ error: true, message: "Internal server error" });
     }
   },
+  ADD_INVOICE: async (req, res) => {
+    try {
+      const {
+        userId,
+        to,
+        createdDate,
+        email,
+        dueDate,
+        term,
+        description,
+        price,
+      } = req.body;
+
+      await pool.query(
+        `INSERT INTO invoices(user_id, "to", created_date, email, term, description, price, due_date) VALUES($1,$2,$3,$4,$5,$6,$7,$8)`,
+        [userId, to, createdDate, email, term, description, price, dueDate]
+      );
+
+      return res.status(201).json("Invoice added successfully");
+    } catch (error) {
+      console.log(error.message);
+      return res
+        .status(500)
+        .json({ error: true, message: "Internal server error" });
+    }
+  },
+
   // GET_ACTIVE_POSTS: async (req, res) => {
   //   const limit = parseInt(req.query.limit);
   //   const search = req.query.search || "";
