@@ -55,9 +55,11 @@ const LOGIN = async (req, res) => {
       }
     );
 
-    return res
-      .status(201)
-      .json({ accessToken, user: "user", msg: "You're logged in" });
+    return res.status(201).json({
+      accessToken,
+      user: { id: user.rows[0].user_id },
+      msg: "You're logged in",
+    });
   } catch (error) {
     console.log(error.message);
     return res
