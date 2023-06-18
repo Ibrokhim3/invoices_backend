@@ -13,11 +13,31 @@ module.exports = {
     try {
       const invoices = await pool.query(`SELECT * FROM invoices`);
 
-      console.log(invoices);
       return res.status(200).json(invoices.rows);
     } catch (error) {
       console.log(error.message);
-      res.status(500).json({ error: true, message: "Internal server error" });
+      return res
+        .status(500)
+        .json({ error: true, message: "Internal server error" });
+    }
+  },
+  GET_ONE_INVOICE: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const invoice = await pool.query(`SELECT * FROM invoices where id=$1`, [
+        id,
+      ]);
+
+      if (!invoice.rows[0]) {
+        return res.status(404).json("Invoice not found");
+      }
+
+      return res.status(200).json(invoice.rows[0]);
+    } catch (error) {
+      console.log(error.message);
+      return res
+        .status(500)
+        .json({ error: true, message: "Internal server error" });
     }
   },
   // GET_ACTIVE_POSTS: async (req, res) => {

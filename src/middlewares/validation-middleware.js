@@ -1,7 +1,7 @@
-const { commentValidation } = require("../validation/comment-validation");
-const { addPostValidation } = require("../validation/post-validation");
-const { replyValidation } = require("../validation/reply-validation");
-const { signupValidation } = require("../validation/user-validation");
+// const { commentValidation } = require("../validation/comment-validation");
+// const { addPostValidation } = require("../validation/invoice-validation");
+// const { replyValidation } = require("../validation/reply-validation");
+// const { signupValidation } = require("../validation/user-validation");
 
 exports.userValidate = function (req, res, next) {
   try {
@@ -18,9 +18,9 @@ exports.userValidate = function (req, res, next) {
   }
 };
 
-exports.postValidate = function (req, res, next) {
+exports.invoiceValidate = function (req, res, next) {
   try {
-    const { error } = addPostValidation(req.body);
+    const { error } = addInvoiceValidation(req.body);
     if (error) {
       console.log(error);
       return res.status(400).json({ msg: error.details[0].message });

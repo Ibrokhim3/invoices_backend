@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-exports.addPostValidation = (data) => {
+exports.addInvoiceValidation = (data) => {
   const schema = Joi.object({
     postDate: Joi.string().required(),
     postTime: Joi.string().required(),
