@@ -5,62 +5,33 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users(
      user_id VARCHAR UNIQUE NOT NULL DEFAULT gen_random_uuid(),
      username VARCHAR(50) NOT NULL,
-     user_email VARCHAR(50) UNIQUE NOT NULL,
-     password VARCHAR(30) NOT NULL
+     email VARCHAR(50) UNIQUE NOT NULL,
+     password VARCHAR NOT NULL, 
+     profile_img VARCHAR
+);
+DROP TABLE IF EXISTS invoices;
+CREATE TABLE invoices(
+     id VARCHAR UNIQUE NOT NULL DEFAULT gen_random_uuid(),
+     user_id VARCHAR UNIQUE REFERENCES users(user_id) ON DELETE CASCADE,
+     "to" VARCHAR(100) NOT NULL, 
+     created_date DATE NOT NULL DEFAULT CURRENT_DATE,  
+     email VARCHAR(50) NOT NULL,
+     term INT, 
+     description TEXT NOT NULL, 
+     price INT,
+     due_date DATE NOT NULL,
+     paid BOOLEAN NOT NULL DEFAULT false 
 );
 
-CREATE TABLE likes(
-     like_id VARCHAR UNIQUE NOT NULL DEFAULT gen_random_uuid(),
-     user_id VARCHAR[] UNIQUE,
-     post_id VARCHAR UNIQUE, 
-     likes INT DEFAULT 0
-
-);
-
-
-CREATE TABLE posts(
-     post_id VARCHAR UNIQUE NOT NULL DEFAULT gen_random_uuid(),
-     user_id VARCHAR UNIQUE NOT NULL REFERENCES users(user_id)  ON DELETE CASCADE,
-     filename varchar,
-     size INT,
-     mimetype VARCHAR,
-     uploaded_time TIMESTAMP(0) DEFAULT current_timestamp
-
-
-);
-
-CREATE TABLE avatar(
-     avatar_id VARCHAR UNIQUE NOT NULL DEFAULT gen_random_uuid(),
-     user_id VARCHAR UNIQUE NOT NULL REFERENCES users(user_id)  ON DELETE CASCADE,
-     filename varchar,
-     avatar_url VARCHAR, 
-     size INT,
-     mimetype VARCHAR
-
-);
-
-CREATE TABLE cover(
-     cover_id VARCHAR UNIQUE NOT NULL DEFAULT gen_random_uuid(),
-     user_id VARCHAR UNIQUE NOT NULL REFERENCES users(user_id)  ON DELETE CASCADE,
-     filename varchar,
-     cover_url VARCHAR, 
-     size INT,
-     mimetype VARCHAR
-
-);
-
-
-CREATE TABLE jwt(
-     user_id VARCHAR UNIQUE NOT NULL,
-     username VARCHAR(50) UNIQUE NOT NULL,
-     profile_img VARCHAR NOT NULL,
-     token VARCHAR
-     
-);
 
 
 --------------
 --------------
+
+INSERT INTO users(username, email, password) VALUES ('someone', 'someone@gmail.com', 'salom');
+INSERT INTO invoices(user_id, "to", email, term, description, price, due_date) VALUES ('34e62119-e026-44e1-9bc0-d0d7266379db', 'anyone', 'salom@gmail.com', 15, 'lorem ipsum ...', 1000, '2023-06-18' );
+
+
 
 ALTER TABLE users ADD CONSTRAINT fk_user_email
 FOREIGN KEY(user_email_id) 
@@ -176,7 +147,7 @@ CREATE TABLE users(
      
 );
 
-INSERT INTO users(user_name) VALUES ('someone');
+
 
 
 --Increase the length of varchar
