@@ -31,6 +31,9 @@ CREATE TABLE invoices(
 INSERT INTO users(username, email, password) VALUES ('someone', 'someone@gmail.com', 'salom');
 INSERT INTO invoices(user_id, "to", email, term, description, price, due_date) VALUES ('34e62119-e026-44e1-9bc0-d0d7266379db', 'anyone', 'salom@gmail.com', 15, 'lorem ipsum ...', 1000, '2023-06-18' );
 
+ALTER TABLE invoices
+DROP CONSTRAINT invoices_user_id_key;
+
 
 
 ALTER TABLE users ADD CONSTRAINT fk_user_email

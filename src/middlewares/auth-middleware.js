@@ -2,21 +2,22 @@ const jwt = require("jsonwebtoken");
 
 module.exports.verifyToken = async (req, res, next) => {
   try {
-    const token = req.headers.token;
+    const token = req.headers.authorization;
 
     if (!token) {
-      return res.status(400).json("You have to log in to the system!");
+      return res.status(403).json("You have to log in to the system!");
     }
 
-    const userData = jwt.verify(token, process.env.SECRET_KEY);
+    const uToken = token.replace("Bearer ", "");
 
-    const userRole = userData.userRole;
+    const userData = jwt.verify(uToken, process.env.SECRET_KEY);
 
-    if (userData && userRole === "admin") {
+    if (userData) {
       return next();
     }
+
     return res
-      .status(404)
+      .status(403)
       .json("Token doesn't exist or you are not authorized!");
   } catch (error) {
     return res

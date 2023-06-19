@@ -1,22 +1,15 @@
 const Joi = require("joi");
 
-exports.addInvoiceValidation = (data) => {
+module.exports = (data) => {
   const schema = Joi.object({
-    postDate: Joi.string().required(),
-    postTime: Joi.string().required(),
-    postDir: Joi.string().min(2).max(50).required(),
-    postInnerDir: Joi.string().min(2).max(50).required(),
-    postType: Joi.string().min(2).max(50).required(),
-    postLink: Joi.string().min(0).max(50).required(false),
-    postAuthor: Joi.string().required(false),
-    firmTitle: Joi.string().required(false),
-    speakerName: Joi.string().min(2).max(50).required(),
-    speakerJob: Joi.string().min(2).max(50).required(),
-    speakerTelNum: Joi.string().required(),
-    speakerTelNum2: Joi.string().min(0),
-    postTitle: Joi.string().min(2).max(50).required(),
-    postDesc: Joi.string().min(2).max(100).required(),
-    postText: Joi.string().min(2).max(1000).required(),
+    userId: Joi.string(),
+    to: Joi.string().min(3).max(50).required(),
+    createdDate: Joi.date().required(),
+    email: Joi.string().required(),
+    dueDate: Joi.date().required(),
+    term: Joi.number().required(),
+    description: Joi.string().allow(""),
+    price: Joi.number().min(100).max(10000).required(),
   });
 
   return schema.validate(data);

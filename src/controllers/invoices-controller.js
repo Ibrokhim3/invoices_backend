@@ -11,8 +11,19 @@ const pool = require("../config/db_config");
 module.exports = {
   GET_INVOICES: async (req, res) => {
     try {
-      const invoices = await pool.query(`SELECT * FROM invoices`);
-
+      console.log(req.query.paid_like);
+      // const invoices = await pool.query(
+      //   `SELECT * FROM invoices where paid LIKE $1`,
+      //   [`${req.query.paid_like}%`]
+      // );
+      if (!req.query.paid_like) {
+        const invoices = await pool.query(`SELECT * FROM invoices`);
+        return res.status(200).json(invoices.rows);
+      }
+      const invoices = await pool.query(
+        `SELECT * FROM invoices where paid=$1`,
+        [req.query.paid_like]
+      );
       return res.status(200).json(invoices.rows);
     } catch (error) {
       console.log(error.message);
@@ -111,6 +122,30 @@ module.exports = {
       await pool.query(`UPDATE invoices SET paid=$1 where id=$2`, [paid, id]);
 
       return res.status(200).json("Invoice updated successfully");
+    } catch (error) {
+      console.log(error.message);
+      return res
+        .status(500)
+        .json({ error: true, message: "Internal server error" });
+    }
+  },
+  DELETE_INVOICE: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const invoice = await pool.query(`SELECT * from invoices where id=$1`, [
+        id,
+      ]);
+
+      if (!invoice.rows[0]) {
+        return res.status(404).json("Invoice was not found");
+      }
+
+      // const { userId, paid } = req.body;
+
+      await pool.query(`DELETE FROM invoices where id=$1`, [id]);
+
+      return res.status(200).json("Invoice deleted successfully");
     } catch (error) {
       console.log(error.message);
       return res
