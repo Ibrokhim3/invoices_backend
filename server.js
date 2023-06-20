@@ -7,7 +7,7 @@ const usersRouter = require("./src/routers/auth-router");
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 app.use("/", mainRouter);
 app.use("/", usersRouter);

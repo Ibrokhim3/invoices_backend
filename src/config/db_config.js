@@ -12,8 +12,6 @@ module.exports = pool = new Pool({
   ssl: true,
 });
 
-// postgresql://ibrokhim:Zkw2y3q2KeUrU6y7dNogiYDYhGxMN83I@dpg-ci87n6liuie0h3773dpg-a.singapore-postgres.render.com/invoices_qu4a
-
 // module.exports = pool = new Pool({
 //   user: "postgres",
 //   host: "localhost",
