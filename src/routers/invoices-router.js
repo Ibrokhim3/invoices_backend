@@ -5,7 +5,7 @@ const { invoiceValidate } = require("../middlewares/validation-middleware");
 
 const router = Router();
 
-//posts
+//invoices
 
 router.get("/invoices", invoicesCtr.GET_INVOICES);
 router.get("/invoices/:id", invoicesCtr.GET_ONE_INVOICE);
