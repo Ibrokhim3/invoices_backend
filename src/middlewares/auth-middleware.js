@@ -4,8 +4,9 @@ module.exports.verifyToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    if (!token) {
-      return res.status(403).json("You have to log in to the system!");
+    //temporarily! should be (!token) check console
+    if (token == "Bearer") {
+      return res.status(401).json("You have to log in to the system!");
     }
 
     const uToken = token.replace("Bearer ", "");
@@ -17,9 +18,10 @@ module.exports.verifyToken = async (req, res, next) => {
     }
 
     return res
-      .status(403)
+      .status(401)
       .json("Token doesn't exist or you are not authorized!");
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json({ error: true, message: "Internal server error (token)" });
