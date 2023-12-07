@@ -14,9 +14,7 @@ module.exports = {
       return res.status(200).json(invoices.rows);
     } catch (error) {
       console.log(error.message);
-      return res
-        .status(500)
-        .json({ error: true, message: "Internal server error" });
+      return res.status(500).json({ error: true, message: error.message });
     }
   },
   GET_ONE_INVOICE: async (req, res) => {
@@ -138,6 +136,4 @@ module.exports = {
         .json({ error: true, message: "Internal server error" });
     }
   },
-
- 
 };
