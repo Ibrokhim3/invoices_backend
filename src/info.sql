@@ -29,7 +29,7 @@ CREATE TABLE invoices(
 --------------
 
 INSERT INTO users(username, email, password) VALUES ('Salom', 'salom@gmail.com', 'salom');
-INSERT INTO invoices(user_id, "to", email, term, description, price, due_date) VALUES ('fa445843-fd56-4342-877d-fe5a63176596', 'anyone', 'salom@gmail.com', 14, 'lorem ipsum ...', 1000, '2023-06-18' );
+INSERT INTO invoices(user_id, "to", email, term, description, price, due_date) VALUES ('840a3d0a-8456-4439-8307-d11ff71a7de1', 'anyone', 'salom@gmail.com', 14, 'lorem ipsum ...', 1000, '2023-06-18' );
 
 ALTER TABLE invoices
 DROP CONSTRAINT invoices_user_id_key;
