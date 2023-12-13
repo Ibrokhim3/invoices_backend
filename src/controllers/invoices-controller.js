@@ -57,9 +57,7 @@ module.exports = {
       return res.status(201).json("Invoice added successfully");
     } catch (error) {
       console.log(error.message);
-      return res
-        .status(500)
-        .json({ error: true, message: "Internal server error" });
+      return res.status(500).json({ error: true, message: error.message });
     }
   },
   UPDATE_INVOICE: async (req, res) => {
